@@ -3,3 +3,5 @@
 <p><%= @article.body %></p>
 
 <%= link_to "<< All Posts", articles_path %>
+<%= link_to "Edit", edit_article_path %>
+<%= link_to "Delete", article_path(@article), method: :delete, data: {confirm: "You sure?"} %>
