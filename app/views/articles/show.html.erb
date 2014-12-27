@@ -2,6 +2,11 @@
 
 <p><%= @article.body %></p>
 
+<h3>Comments (<%= @article.comments.size %>)</h3>
+<%= render partial: "comments/form" %>
+
+<%= render partial: "comment", collection: @article.comments %>
+
 <%= link_to "<< All Posts", articles_path %>
 <%= link_to "Edit", edit_article_path %>
 <%= link_to "Delete", article_path(@article), method: :delete, data: {confirm: "You sure?"} %>
