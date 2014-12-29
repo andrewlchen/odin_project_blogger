@@ -1,6 +1,13 @@
 <h3>Post a Comment</h3>
 
 <%= form_for [@article, @comment] do |f| %>
+
+<ul>
+	<% f.object.errors.full_messages.each do |error_message| %>
+		<li><%= error_message %></li>
+	<% end %>
+</ul>
+
 	<p>
 		<%= f.label :commenter, "Your Name" %>
 		<%= f.text_field :commenter %>

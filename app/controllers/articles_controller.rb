@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+	respond_to :html, :xml, :json
+
 	def index 
 		@articles = Article.all 
 	end
@@ -15,11 +17,13 @@ class ArticlesController < ApplicationController
 
 	def create 
 		@article = Article.new(article_params)
-		@article.save 
+		saved = @article.save 
+		
+		if saved
+			flash.notice = "New post created: '#{@article.title}'"
+		end 
 
-		flash.notice = "New post created: '#{@article.title}'"
-
-		redirect_to article_path(@article)
+		respond_with(@article)
 	end 
 
 	def destroy 
@@ -46,6 +50,6 @@ class ArticlesController < ApplicationController
 
 	private 
 		def article_params
-			params.require(:article).permit(:title, :body, :tag_list)
+			params.require(:article).permit(:title, :body, :tag_list, :image)
 		end 
 end

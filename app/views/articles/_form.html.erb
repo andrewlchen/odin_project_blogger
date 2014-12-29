@@ -1,9 +1,10 @@
-<%= form_for(@article) do |f| %>
+<%= form_for(@article, html: {multipart: true}) do |f| %>
 	<ul>
 		<% @article.errors.full_messages.each do |error_message| %>
 			<li><%= error_message %></li>
 		<% end %>
 	</ul>
+
 	<p>
 		<%= f.label :title %>
 		<%= f.text_field :title %>
@@ -15,6 +16,15 @@
 	<p>
 		<%= f.label :body %>
 		<%= f.text_area :body %>
+	</p>
+	<p>
+		<% if @article.image.exists? %>
+			<%= image_tag @article.image.url(:thumb) %>
+			<br/>
+		<% end %>
+		<%= f.label :image, "Attach a New Photo" %>
+		<br/>
+		<%= f.file_field :image %>
 	</p>
 	<p><%= f.submit "Save" %></p>
 <% end %>
